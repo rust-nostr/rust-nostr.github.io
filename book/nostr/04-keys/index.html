@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://rust-nostr.github.io/book/nostr/03-features/">
+        <link rel="canonical" href="https://rust-nostr.github.io/book/nostr/04-keys/">
       
       
-        <link rel="prev" href="../02-installation/">
+        <link rel="prev" href="../03-features/">
       
       
-        <link rel="next" href="../04-keys/">
+        <link rel="next" href="../../nostr-sdk/01-index/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Features - Rust Nostr Book</title>
+        <title>Keys - Rust Nostr Book</title>
       
     
     
@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#features" class="md-skip">
+        <a href="#keys" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Features
+              Keys
             
           </span>
         </div>
@@ -462,6 +462,26 @@
                 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../03-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -473,28 +493,18 @@
         
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   <span class="md-ellipsis">
-    Features
+    Keys
   </span>
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../04-keys/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -503,6 +513,40 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generate-new-random-keys" class="md-nav__link">
+    Generate new random keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-from-hex-andor-bech32-secret-key" class="md-nav__link">
+    Restore from hex and/or bech32 secret key
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -644,6 +688,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generate-new-random-keys" class="md-nav__link">
+    Generate new random keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-from-hex-andor-bech32-secret-key" class="md-nav__link">
+    Restore from hex and/or bech32 secret key
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -660,83 +726,99 @@
   
 
 
-<h1 id="features">Features</h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This page is related <strong>only</strong> to the <code>rust</code> library. </p>
+<h1 id="keys">Keys</h1>
+<h2 id="generate-new-random-keys">Generate new random keys</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Rust</label><label for="__tabbed_1_2">Python</label><label for="__tabbed_1_3">Kotlin</label><label for="__tabbed_1_4">Swift</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">nostr</span>::<span class="n">prelude</span>::<span class="o">*</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Keys</span>::<span class="n">generate</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">public_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keys</span><span class="p">.</span><span class="n">public_key</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keys</span><span class="p">.</span><span class="n">secret_key</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Public key (hex): {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">public_key</span><span class="p">);</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Public key (bech32): {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">public_key</span><span class="p">.</span><span class="n">to_bech32</span><span class="p">()</span><span class="o">?</span><span class="p">);</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Secret key (hex): {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">keys</span><span class="p">.</span><span class="n">secret_key</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">display_secret</span><span class="p">());</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Secret key (bech32): {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">secret_key</span><span class="p">.</span><span class="n">to_bech32</span><span class="p">()</span><span class="o">?</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
-<p>Available features:</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th style="text-align: center;">Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>std</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable <code>std</code> library</td>
-</tr>
-<tr>
-<td><code>alloc</code></td>
-<td style="text-align: center;">No</td>
-<td>Needed to use this library in <code>no_std</code> context</td>
-</tr>
-<tr>
-<td><code>blocking</code></td>
-<td style="text-align: center;">No</td>
-<td>Needed to use <code>NIP-05</code> and <code>NIP-11</code> features in not async/await context</td>
-</tr>
-<tr>
-<td><code>all-nips</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable all NIPs</td>
-</tr>
-<tr>
-<td><code>nip03</code></td>
-<td style="text-align: center;">No</td>
-<td>Enable NIP-03: OpenTimestamps Attestations for Events</td>
-</tr>
-<tr>
-<td><code>nip04</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-04: Encrypted Direct Message</td>
-</tr>
-<tr>
-<td><code>nip05</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-05: Mapping Nostr keys to DNS-based internet identifiers</td>
-</tr>
-<tr>
-<td><code>nip06</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-06: Basic key derivation from mnemonic seed phrase</td>
-</tr>
-<tr>
-<td><code>nip11</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-11: Relay Information Document</td>
-</tr>
-<tr>
-<td><code>nip44</code></td>
-<td style="text-align: center;">No</td>
-<td>Enable NIP-44: Encrypted Payloads (Versioned) - EXPERIMENTAL</td>
-</tr>
-<tr>
-<td><code>nip46</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-46: Nostr Connect</td>
-</tr>
-<tr>
-<td><code>nip47</code></td>
-<td style="text-align: center;">Yes</td>
-<td>Enable NIP-47: Nostr Wallet Connect</td>
-</tr>
-</tbody>
-</table>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nostr_protocol</span> <span class="kn">import</span> <span class="n">Keys</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">Keys</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+<span class="n">public_key</span> <span class="o">=</span> <span class="n">keys</span><span class="o">.</span><span class="n">public_key</span><span class="p">()</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="n">keys</span><span class="o">.</span><span class="n">secret_key</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keys:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Public keys:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     hex:    </span><span class="si">{</span><span class="n">public_key</span><span class="o">.</span><span class="n">to_hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     bech32: </span><span class="si">{</span><span class="n">public_key</span><span class="o">.</span><span class="n">to_bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Secret keys:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     hex:    </span><span class="si">{</span><span class="n">secret_key</span><span class="o">.</span><span class="n">to_hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     bech32: </span><span class="si">{</span><span class="n">secret_key</span><span class="o">.</span><span class="n">to_bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">TODO</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">TODO</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="restore-from-hex-andor-bech32-secret-key">Restore from <strong>hex</strong> and/or <strong>bech32</strong> secret key</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Rust</label><label for="__tabbed_2_2">Python</label><label for="__tabbed_2_3">Kotlin</label><label for="__tabbed_2_4">Swift</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="kt">str</span>::<span class="n">FromStr</span><span class="p">;</span>
+
+<span class="k">use</span><span class="w"> </span><span class="n">nostr</span>::<span class="n">prelude</span>::<span class="o">*</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Restore from hex</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecretKey</span>::<span class="n">from_str</span><span class="p">(</span><span class="s">&quot;6b911fd37cdf5c81d4c0adb1ab7fa822ed253ab0ad9aa18d77257c88b29b718e&quot;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Keys</span>::<span class="n">new</span><span class="p">(</span><span class="n">secret_key</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Restore from bech32</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecretKey</span>::<span class="n">from_bech32</span><span class="p">(</span><span class="s">&quot;nsec1j4c6269y9w0q2er2xjw8sv2ehyrtfxq3jwgdlxj6qfn8z4gjsq5qfvfk99&quot;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Keys</span>::<span class="n">new</span><span class="p">(</span><span class="n">secret_key</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Try from bech32 or hex</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Keys</span>::<span class="n">from_sk_str</span><span class="p">(</span><span class="s">&quot;hex or bech32 secret key&quot;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nostr_protocol</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">secret_key</span> <span class="o">=</span> <span class="n">SecretKey</span><span class="o">.</span><span class="n">from_hex</span><span class="p">(</span><span class="s2">&quot;6b911fd37cdf5c81d4c0adb1ab7fa822ed253ab0ad9aa18d77257c88b29b718e&quot;</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">Keys</span><span class="p">(</span><span class="n">secret_key</span><span class="p">)</span>
+
+<span class="n">secret_key</span> <span class="o">=</span> <span class="n">SecretKey</span><span class="o">.</span><span class="n">from_bech32</span><span class="p">(</span><span class="s2">&quot;nsec1j4c6269y9w0q2er2xjw8sv2ehyrtfxq3jwgdlxj6qfn8z4gjsq5qfvfk99&quot;</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">Keys</span><span class="p">(</span><span class="n">secret_key</span><span class="p">)</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">Keys</span><span class="o">.</span><span class="n">from_sk_str</span><span class="p">(</span><span class="s2">&quot;hex or bech32 secret key&quot;</span><span class="p">)</span>
+
+<span class="c1"># ..</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">TODO</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">TODO</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 
 
 

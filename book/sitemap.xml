@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://rust-nostr.github.io/book/nostr/04-keys/</loc>
+         <lastmod>2023-09-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://rust-nostr.github.io/book/nostr-sdk/01-index/</loc>
          <lastmod>2023-09-30</lastmod>
          <changefreq>daily</changefreq>
